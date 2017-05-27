@@ -76,42 +76,56 @@ hard_input('pw_area', USER_PW)
 driver.find_element_by_class_name('btn_global').click()
 
 # Move to Eurang
+url_base = 'http://cafe.naver.com/firenze/'
 driver.get('http://cafe.naver.com/firenze')
 
 # Move to Reviewboard
-menulink = driver.find_element_by_id('menuLink59') #.click()
-driver.execute_script("arguments[0].click()", menulink)
+# menulink = driver.find_element_by_id('menuLink59') #.click()
+# driver.execute_script("arguments[0].click()", menulink)
 
-# Swith into inside iframe, where all relevant contents are
-main_area = driver.find_element_by_id('main-area')
-iframe = main_area.find_element_by_tag_name('iframe')
-driver.switch_to_frame(iframe)
+
 
 # Move to the first article from the list
-article_board = driver.find_elements_by_class_name('article-board')[1]
-article_board.find_element_by_class_name('aaa').click()
+# article_board = driver.find_elements_by_class_name('article-board')[1]
+# article_board.find_element_by_class_name('aaa').click()
 
+index = 4743665
 while True:
-	cur = driver.find_element_by_class_name('list-btn-nor2')
-	cur = cur.find_element_by_class_name('fl')
-	cur = cur.find_elements_by_class_name('btn2')[-1]
-	cur.click()
+	
+	# cur = driver.find_element_by_class_name('list-btn-nor2')
+	# cur = cur.find_element_by_class_name('fl')
+	# cur = cur.find_elements_by_class_name('btn2')[-1]
+	# cur.click()
 
 	try:
+		driver.get(url_base + str(index))
+
+		# Swith into inside iframe, where all relevant contents are
+		main_area = driver.find_element_by_id('main-area')
+		iframe = main_area.find_element_by_tag_name('iframe')
+		driver.switch_to_frame(iframe)
+
 		inbox = driver.find_element_by_class_name('inbox')
 
 		# ART_ID
-		cur = inbox.find_element_by_class_name('etc-box')
-		cur = cur.find_element_by_class_name('fr')
-		cur = cur.find_element_by_class_name('filter-50')
-		ART_ID = cur.text.split('/')[-1]
+		# cur = inbox.find_element_by_class_name('etc-box')
+		# cur = cur.find_element_by_class_name('fr')
+		# cur = cur.find_element_by_class_name('filter-50')
+		# ART_ID = cur.text.split('/')[-1]
 
 		# ART_TITL
 		cur = inbox.find_element_by_class_name('tit-box')
-		cur = cur.find_element_by_class_name('fl')
-		cur = cur.find_element_by_class_name('m-tcol-c')
+		cur = cur.find_element_by_class_name('fl')		
+		cur_ART_TITL = cur.find_elements_by_class_name('m-tcol-c')[0]
+		cur_BORADTYP = cur.find_elements_by_class_name('m-tcol-c')[-1]
+		if "나의여행" not in cur_BORADTYP.text:
+			raise selenium.common.exceptions.NoSuchElementException
+		print(cur_BORADTYP.text)
 		ART_TITL = cur.text
 		
+		# ART_ID
+		ART_ID = str(index)
+
 		# DATETIME
 		cur = inbox.find_element_by_class_name('tit-box')
 		cur = cur.find_element_by_class_name('fr')
@@ -148,9 +162,10 @@ while True:
 		print('Deleted or Non-existant page')
 		driver.switch_to_alert().accept()
 
-	driver.execute_script('window.localStorage.clear();')
-	# except selenium.common.exceptions.NoSuchElementException:
-	# 	print('Expected elements not Found: NoSuchElementException')
+	except selenium.common.exceptions.NoSuchElementException:
+		print('Expected elements not Found: NoSuchElementException')
+
+	index -= 1
 
 # Write and save 
 
