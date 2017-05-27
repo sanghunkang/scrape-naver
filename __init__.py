@@ -7,8 +7,10 @@ import selenium
 # Define constants
 SYSTEM = sys.platform
 
+PATH_URLLIST = '.\\results\\urllist.txt'
 PATH_ARTICLES = '.\\results\\articles.txt'
 PATH_COMMENTS = '.\\results\\comments.txt'
+
 SPLITER = '||SPLITER||'
 
 def get_config(system):
@@ -50,6 +52,15 @@ def hard_input(id_elem, str_input):
 # 	locator = seq_locator.pop(0)
 
 # Define functions with return
+def generate_list_from_txt(path):
+	ret = []
+	with open(path, "r") as f:
+		line_read = f.readline()
+		while line_read:
+			ret.append(line_read)
+			line_read = f.readline()
+	return ret
+
 def wrap_entries(dict_entries, spliter):
 	ret = ''
 	for key in entries.keys():
@@ -89,8 +100,9 @@ driver.get('http://cafe.naver.com/firenze')
 # article_board = driver.find_elements_by_class_name('article-board')[1]
 # article_board.find_element_by_class_name('aaa').click()
 
-index = 4743665
-while True:
+indexlist = generate_list_from_txt(PATH_URLLIST)
+
+for index in indexlist:
 	
 	# cur = driver.find_element_by_class_name('list-btn-nor2')
 	# cur = cur.find_element_by_class_name('fl')
@@ -164,8 +176,6 @@ while True:
 
 	except selenium.common.exceptions.NoSuchElementException:
 		print('Expected elements not Found: NoSuchElementException')
-
-	index -= 1
 
 # Write and save 
 
