@@ -35,6 +35,9 @@ def append_to_file(path, str_input):
 	with open(path, 'a', encoding='utf-8') as fw:
 		fw.write(str_input)
 
+def hard_trigger(elem):
+	driver.execute_script("arguments[0].click();", elem);
+
 def hard_input(id_elem, str_input):
 	elem = driver.find_element_by_id(id_elem)
 	actions = ActionChains(driver)
@@ -42,8 +45,6 @@ def hard_input(id_elem, str_input):
 	actions.click()
 	actions.send_keys(str_input)  # Replace with whichever keys you want.
 	actions.perform()
-
-# def hard_trigger(elem):
 
 # def chain_find_element(driver_current, seq_locator):
 # 	locator = seq_locator.pop(0)
@@ -79,14 +80,13 @@ driver.get('http://cafe.naver.com/firenze')
 
 # Move to Reviewboard
 menulink = driver.find_element_by_id('menuLink59') #.click()
-driver.execute_script("arguments[0].click()", menulink)
+hard_trigger(menulink)
 
 # Swith into inside iframe, where all relevant contents are
 main_area = driver.find_element_by_id('main-area')
 iframe = main_area.find_element_by_tag_name('iframe')
 driver.switch_to_frame(iframe)
 
-# print(len(btns))
 i = 1
 while True:
 	i += 1
@@ -99,8 +99,7 @@ while True:
 	cur = driver.find_element_by_class_name("prev-next")
 	btns = cur.find_elements_by_tag_name("a")
 	
-	elem = btns[i]
-	driver.execute_script("arguments[0].click();", elem);
+	hard_trigger(btns[i])
 
 	if i == 11:
 		i = 1

@@ -38,6 +38,9 @@ def append_to_file(path, str_input):
 	with open(path, 'a', encoding='utf-8') as fw:
 		fw.write(str_input)
 
+def hard_trigger(elem):
+	driver.execute_script("arguments[0].click();", elem);
+
 def hard_input(id_elem, str_input):
 	elem = driver.find_element_by_id(id_elem)
 	actions = ActionChains(driver)
@@ -45,8 +48,6 @@ def hard_input(id_elem, str_input):
 	actions.click()
 	actions.send_keys(str_input)  # Replace with whichever keys you want.
 	actions.perform()
-
-# def hard_trigger(elem):
 
 # def chain_find_element(driver_current, seq_locator):
 # 	locator = seq_locator.pop(0)
