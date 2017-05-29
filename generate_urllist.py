@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 import selenium
 
+import config
+
 # Define constants
 SYSTEM = sys.platform
 
@@ -11,7 +13,7 @@ PATH_URLLIST = '.\\results\\urllist.txt'
 PATH_ARTICLES = '.\\results\\articles.txt'
 PATH_COMMENTS = '.\\results\\comments.txt'
 
-SPLITER = '||SPLITER||'
+SPLITER = '|++|'
 
 # Import personal data to login
 USER_ID	= config.USER_ID
