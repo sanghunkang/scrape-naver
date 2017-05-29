@@ -1,3 +1,3 @@
 __pycache__/
-Results/
+Results/*.txt
 *.log
