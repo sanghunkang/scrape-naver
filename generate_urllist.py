@@ -7,25 +7,15 @@ import selenium
 # Define constants
 SYSTEM = sys.platform
 
+PATH_URLLIST = '.\\results\\urllist.txt'
+PATH_ARTICLES = '.\\results\\articles.txt'
+PATH_COMMENTS = '.\\results\\comments.txt'
 
-def get_config(system):
-	ret = {}
-	if "win" in system:
-		path_config = "..\\.config\\Scrape_CafeNaver\\config"
-	else:
-		path_config = "../.config/Scrape_CafeNaver/config"
-
-	with open(path_config) as f:
-		ret["USER_ID"] = f.readline().strip()
-		ret["USER_PW"] = f.readline().strip()		
-	return ret
+SPLITER = '||SPLITER||'
 
 # Import personal data to login
-USER_ID	= get_config(SYSTEM)["USER_ID"]
-USER_PW	= get_config(SYSTEM)["USER_PW"]
-
-PATH_URLLIST = '.\\results\\urllist.txt'
-
+USER_ID	= config.USER_ID
+USER_PW	= config.USER_PW
 
 # Define functions without return
 def initialize_file(path):

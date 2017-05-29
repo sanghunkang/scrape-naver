@@ -15,21 +15,9 @@ PATH_COMMENTS = '.\\results\\comments.txt'
 
 SPLITER = '||SPLITER||'
 
-# def get_config(system):
-# 	ret = {}
-# 	if "win" in system:
-# 		path_config = "..\\.config\\Scrape_CafeNaver\\config"
-# 	else:
-# 		path_config = "../.config/Scrape_CafeNaver/config"
-
-# 	with open(path_config) as f:
-# 		ret["USER_ID"] = f.readline().strip()
-# 		ret["USER_PW"] = f.readline().strip()		
-# 	return ret
-
 # Import personal data to login
-USER_ID	= config.USER_ID#get_config(SYSTEM)["USER_ID"]
-USER_PW	= config.USER_PW#get_config(SYSTEM)["USER_PW"]
+USER_ID	= config.USER_ID
+USER_PW	= config.USER_PW
 
 # Define functions without return
 def initialize_file(path):
