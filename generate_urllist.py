@@ -7,6 +7,7 @@ import selenium
 # Define constants
 SYSTEM = sys.platform
 
+
 def get_config(system):
 	ret = {}
 	if "win" in system:
